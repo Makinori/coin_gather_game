@@ -1,45 +1,81 @@
-# pygame sample
-![pygame_sample](image1.png)
+# coin gather game
+![pygame_sample](documents/image1.png)
 
-### how to play
-#### install
-requipments : pygame
-$ pip install pygame # to install pygame
+the game, which player gathers coins
+
+
+# how to play :: install and execute
+
+## player_mode
+requipments : pygame  # sdl game_engine wrapper for python
+```
+$ pip install pygame 
 $ python game.py
-
-#### operation
-Arrow keys : player move
-z : replace coin
-Esc : exit game
+```
 
 
-### rule
-rule is to get coins until they disapper
+## AI_mode
+requipments : chainer # and some dependments
+```
+$ pip install chainer # and some dependments
+$ python neuralnet_ai.py 
+```
+### neuralnet_ai.py
+example of `ai_lib`   
+using 4-layer neural network, the sample model to gain actions.  
+more detils : [documents/neuralnet_ai](documents/neuralnet_ai.md) (Japanese)  
 
-#### player
-drawn as blue rect
-Arrow keys to move.
-reflected by walls.
-when touching warmhole, warp to warmhole exit
+# rule
+touching this to understand this game.
 
-#### wall
-drawn an broun
+## objects of environment
 
-#### warmhole
-drawn as green
+| name | shape | works |
+|--|--|--|
+| player | blue rect | player |
+| wall | broun rect | make player reflected |
+| warmhole | green rect | make player worped |
+| coin | black->pink (rect) | object to gather |
 
-#### coin
-drawn as brown
-when reft for a while, it is replaced
-when touched by player for a while, it is replaced
-z key to replace
+## operation
+1.using `arrow keys`, move to where coins were placed.
+1.while player touches coin, the color of coins are changed
+1.after touch them for awhile, coin appears next place.
+1.repeat it
+1.`z` key to give up currently appeared coin
+1.`Esc` to exit game
 
 
+## operation (AI_mode)
+more detils : [documents/neuralnet_ai](documents/neuralnet_ai.md) (Japanese)  
+for `neuralnet_ai.py`, in addition to player_mode ...
 
-### to do
+### keys list
+
+| key | works |
+|--|--|
+| x | teach use arrow key |
+| c | out of stack to network |
+| | |
+| a | down fps rate |
+| q | up fps rate |
+| | |
+| w | up frame_per_predict |
+| s | down frame_per_predict |
+| | |
+| r | save network model |
+| f | load_network model |
+| | |
+| d | exit game |
+
+
+# hacking
+more detils : [documents/hacking](documents/hacking.md) (Japanese)__
+
+# to do
 i want to do these things
 1. implement space division search to make it faster to collision detection
-2. make faster list_tree_to_list  # because of recursion
-3. implement AI player
-4. player who has neural net
-5. more useful UI
+1. make faster list_tree_to_list  # because of recursion
+1. implement AI player
+1. player who has neural net
+1. more useful UI
