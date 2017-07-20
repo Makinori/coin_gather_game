@@ -1,4 +1,5 @@
 import sys
+from functools import reduce
 import numpy as np
 import random as random
 
@@ -150,6 +151,49 @@ class NNPlayer(AIPlayer):
 
 ### Ai param
 
+class AgentView(ParamArea):
+  def update(self, dict):
+    map_text = self.view_string(np.array(dict['player'].map_data))
+    
+
+    self.text_list1 = self.update_text_list(
+      ["AgentView"] + map_text
+      )
+
+
+  def draw(self, dict):
+    screen = dict['screen']
+    self.draw_text_list(screen, self.text_list1, x=350, y=20)
+
+  def view_string(self, map_data):
+    if map_data.shape == () :
+      return []
+    else :
+      wall = map_data[0]
+      warp = map_data[1]
+      coin = map_data[2]
+      
+      char_area = wall*1 + warp*2 + coin*4 
+
+      char_area = list(map(lambda lis : reduce(lambda x,y:x+y,
+                                      list(map(self.num_to_char, lis)),
+                                      '')
+                             ,char_area))
+
+      
+      return char_area
+
+  def num_to_char(self, num):
+    if num >= 4 : 
+      return 'C'
+    if num >=2 :
+      return 'W'
+    if num >= 1 :
+      return '#'
+    return '.'
+
+
+
 class NNParam(ParamArea):
   def update(self, dict):
     
@@ -166,16 +210,14 @@ class NNParam(ParamArea):
   def draw(self, dict):
     screen = dict['screen']
     self.draw_text_list(screen, self.text_list1, x=270, y=360)
-
+    
     
 
 
 # main
 
 def main():
-
-  
-  ai_mode = AIMode(ai=NNPlayer, params=[ParamArea, AIParam, NNParam])
+  ai_mode = AIMode(ai=NNPlayer, params=[ParamArea, AIParam, NNParam, AgentView])
   ai_mode.run_game()
   
 if __name__ == '__main__'  :
