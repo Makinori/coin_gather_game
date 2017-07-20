@@ -73,9 +73,7 @@ for `neuralnet_ai.py`, in addition to player_mode ...
 more detils : [documents/hacking](documents/hacking.md) (Japanese)__
 
 # to do
-i want to do these things
-1. implement space division search to make it faster to collision detection
-1. make faster list_tree_to_list  # because of recursion
-1. implement AI player
-1. player who has neural net
 1. more useful UI
+1. test more machine learning algorithms
+1. refatctering
+1. mulchiagent buttle
